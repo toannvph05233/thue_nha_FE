@@ -40,7 +40,7 @@ const HomePage = () => {
             <Banner/>
 
             <div className="container py-3">
-                <h2 className="text-center mb-5">Top 5 ngôi nhà có nhiều lượt đặt thuê nhất</h2>
+                <h2 className="text-center mb-5">Top 5 phòng có nhiều lượt đặt thuê nhất</h2>
                 <Top5BookingHouse/>
                 <br/>
                 <br/>
@@ -48,7 +48,7 @@ const HomePage = () => {
                 <SearchHouse setNameSearch={setNameSearch} setMinPrice={setMinPrice}
                              setMaxPrice={setMaxPrice} setProvince={setProvince} setCurrentPage={setCurrentPage}/>
                 {/*Search End*/}
-                <h2 className="text-center m-5">Danh sách các nhà cho thuê</h2>
+                <h2 className="text-center m-5">Danh sách các phòng cho thuê</h2>
                 <HouseComponent houses={houses} totalPages={totalPages} changePage={changePage}/>
 
                 <AdminTeam/>

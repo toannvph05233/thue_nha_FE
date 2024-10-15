@@ -273,12 +273,12 @@ const UserList = () => {
                                 </Table>
                             </div>
                             <div className="row">
-                                <h2 className="text-md-center">Lịch sử thuê nhà</h2>
+                                <h2 className="text-md-center">Lịch sử thuê phòng</h2>
                                 <Table hover>
                                     <thead>
                                     <tr align="center" style={{fontSize: '20px'}}>
                                         <th>STT</th>
-                                        <th>Tên nhà</th>
+                                        <th>Tên phòng</th>
                                         <th>Địa chỉ</th>
                                         <th>Trạng thái</th>
                                         <th>Giá thuê</th>

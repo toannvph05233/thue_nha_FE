@@ -79,7 +79,7 @@ const WebSocketProvider = ({children}) => {
 
     const onAdminReceived = (payload) => {
         const data = JSON.parse(payload.body);
-        if (data.message === 'Admin đã đồng ý cho bạn làm chủ nhà' || data.message === 'Admin đã từ chối cho bạn làm chủ nhà'){
+        if (data.message === 'Admin đã đồng ý cho bạn làm chủ phòng' || data.message === 'Admin đã từ chối cho bạn làm chủ phòng'){
             dispatch(changeStatus());
         } else {
             setNotify(data);
@@ -102,7 +102,7 @@ const WebSocketProvider = ({children}) => {
             }).catch(error => {
                 console.log(error);
             })
-            if (data.message === 'Admin đã đồng ý cho bạn làm chủ nhà'){
+            if (data.message === 'Admin đã đồng ý cho bạn làm chủ phòng'){
                 AccountService.getAccountById(account.id).then(response => {
                     const data = {...response, token: account.token};
                     data.password = null;

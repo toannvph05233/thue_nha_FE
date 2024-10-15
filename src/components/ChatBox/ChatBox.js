@@ -238,7 +238,7 @@ const ChatBox = () => {
                                     :
                                     <div className="chat-history text-center fs-5" style={{height: '500px'}}>
                                         <p className="fs-4 fw-medium">Chào mừng đến với LUXURY</p>
-                                        <p>Đặt phòng nhà, homestay trực tuyến giá rẻ</p>
+                                        <p>Đặt phòng phòng, homestay trực tuyến giá rẻ</p>
                                     </div>
                                 }
                             </div>

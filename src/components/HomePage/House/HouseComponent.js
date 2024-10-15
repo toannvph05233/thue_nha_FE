@@ -59,7 +59,7 @@ const HouseComponent = ({houses, totalPages, changePage}) => {
                     })
                         :
                         <div className="text-center text-danger fs-5">
-                            Không tìm thấy nhà phù hợp
+                            Không tìm thấy phòng phù hợp
                         </div>
                 }
             </div>

@@ -95,7 +95,7 @@ const SearchBooking = () => {
     const handleCancelBooking = (booking) => {
         console.log(booking)
         Swal.fire({
-            title: 'Bạn chắc chắn muốn hủy thuê nhà của khách?',
+            title: 'Bạn chắc chắn muốn hủy thuê phòng của khách?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',
@@ -131,7 +131,7 @@ const SearchBooking = () => {
                                 setIsProgressing(false);
                                 const from = format(new Date(booking.startTime), "dd/MM/yyyy");
                                 const to = format(new Date(booking.endTime), "dd/MM/yyyy");
-                                handleSendNotify(account, booking.account.id, `Chủ nhà đã hủy lịch thuê ngôi nhà ${booking.house.name}. Lịch đặt: ${from} - ${to}`, 'profile/rental-history');
+                                handleSendNotify(account, booking.account.id, `Chủ phòng đã hủy lịch thuê ngôi phòng ${booking.house.name}. Lịch đặt: ${from} - ${to}`, 'profile/rental-history');
                             })
                             .catch(err => {
                                 console.log(err);
@@ -224,7 +224,7 @@ const SearchBooking = () => {
                         setIsProgressing(false);
                         const from = format(new Date(booking.startTime), "dd/MM/yyyy");
                         const to = format(new Date(booking.endTime), "dd/MM/yyyy");
-                        handleSendNotify(account, booking.account.id, `Chủ nhà đã xác nhận lịch thuê ngôi nhà ${booking.house.name}. Lịch đặt: ${from} - ${to}`, 'profile/rental-history');
+                        handleSendNotify(account, booking.account.id, `Chủ phòng đã xác nhận lịch thuê ngôi phòng ${booking.house.name}. Lịch đặt: ${from} - ${to}`, 'profile/rental-history');
                     })
                     .catch(err => {
                         console.log(err)
@@ -340,7 +340,7 @@ const SearchBooking = () => {
     return (
         <div className="col-9">
             <div className="container-fluid">
-                <h3 className="text-uppercase text-center mb-5">Lịch sử cho thuê nhà</h3>
+                <h3 className="text-uppercase text-center mb-5">Lịch sử cho thuê phòng</h3>
                 <div className="mb-3 py-4 px-3"
                      style={{backgroundColor: "rgb(0,185,142)"}}>
                     <div className="row g-2">
@@ -381,9 +381,9 @@ const SearchBooking = () => {
                     <thead>
                     <tr align="center">
                         <th>STT</th>
-                        <th>Nhà</th>
+                        <th>phòng</th>
                         <th>Ngày thuê</th>
-                        <th>Ngày trả nhà</th>
+                        <th>Ngày trả phòng</th>
                         <th >Trạng thái</th>
                         <th style={{width: '25%'}}>Hành động</th>
                     </tr>
@@ -467,13 +467,13 @@ const SearchBooking = () => {
                         <div className="px-4">
                             <div className="row">
                                 <div className="col-6">
-                                    <h5 className="mb-3">Thông tin nhà cho thuê</h5>
+                                    <h5 className="mb-3">Thông tin phòng cho thuê</h5>
                                     <p className="mb-2">
-                                        <span className="fw-medium">Tên nhà:</span> {bookingDetail.house?.name}
+                                        <span className="fw-medium">Tên phòng:</span> {bookingDetail.house?.name}
                                     </p>
                                     <p className="mb-2">
                                         <span
-                                            className="fw-medium">Chủ nhà:</span> {bookingDetail.house?.owner.username}
+                                            className="fw-medium">Chủ phòng:</span> {bookingDetail.house?.owner.username}
                                     </p>
                                     <p>
                                         <span className="fw-medium">Địa chỉ:</span> {bookingDetail.house?.address}

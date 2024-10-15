@@ -175,7 +175,7 @@ const ListOwner = () => {
 
     return (
         <div className="col-9">
-            <h3 className="text-uppercase text-center mb-5">Danh sách chủ nhà</h3>
+            <h3 className="text-uppercase text-center mb-5">Danh sách chủ phòng</h3>
             <div className="mb-3 py-4 px-3"
                  style={{backgroundColor: "rgb(0,185,142)"}}>
                 <div className="row g-2">
@@ -287,12 +287,12 @@ const ListOwner = () => {
                             </Table>
                         </div>
                         <div className="row">
-                            <h2 className="text-md-center">Danh sách nhà</h2>
+                            <h2 className="text-md-center">Danh sách phòng</h2>
                             <Table hover>
                                 <thead>
                                 <tr align="center" style={{fontSize: '20px'}}>
                                     <th>STT</th>
-                                    <th>Căn nhà</th>
+                                    <th>Căn phòng</th>
                                     <th>Địa chỉ</th>
                                     <th>Giá thuê</th>
                                     <th>Doanh thu</th>

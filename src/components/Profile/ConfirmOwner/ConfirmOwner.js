@@ -27,7 +27,7 @@ const ConfirmOwner = () => {
     const handleAgree = (value) => {
         let data = {...value, status: "Đã xác nhận"};
         Swal.fire({
-            title: `Bạn đồng để ${value.lastname} ${value.firstname} làm chủ nhà chứ?`,
+            title: `Bạn đồng để ${value.lastname} ${value.firstname} làm chủ phòng chứ?`,
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',
@@ -42,7 +42,7 @@ const ConfirmOwner = () => {
                         timer: 1500
                     }).then();
                     setLoad(!load);
-                    handleSendNotify(account, value.account.id, 'Admin đã đồng ý cho bạn làm chủ nhà', 'profile/houses-owner');
+                    handleSendNotify(account, value.account.id, 'Admin đã đồng ý cho bạn làm chủ phòng', 'profile/houses-owner');
                 }).catch(function (err) {
                     console.log(err);
                 })
@@ -52,7 +52,7 @@ const ConfirmOwner = () => {
 
     const handleRefuse = (data) => {
         Swal.fire({
-            title: `Bạn từ chối để ${data.lastname} ${data.firstname} làm chủ nhà?`,
+            title: `Bạn từ chối để ${data.lastname} ${data.firstname} làm chủ phòng?`,
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Xác nhận',
@@ -67,7 +67,7 @@ const ConfirmOwner = () => {
                         timer: 1500
                     }).then();
                     setLoad(!load);
-                    handleSendNotify(account, data.account.id, 'Admin đã từ chối cho bạn làm chủ nhà', 'profile/register-owner');
+                    handleSendNotify(account, data.account.id, 'Admin đã từ chối cho bạn làm chủ phòng', 'profile/register-owner');
                 }).catch(function (err) {
                     console.log(err);
                 })
@@ -92,7 +92,7 @@ const ConfirmOwner = () => {
 
     return (
         <div className={'col-9'}>
-            <h3 className="text-uppercase mb-4 text-center"> Danh sách đăng ký làm chủ nhà</h3>
+            <h3 className="text-uppercase mb-4 text-center"> Danh sách đăng ký làm chủ phòng</h3>
             <table className="table">
                 <thead>
                 <tr className={'text-center'}>

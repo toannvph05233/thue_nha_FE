@@ -94,7 +94,7 @@ const HouseByIdUser = () => {
 
     return (
         <div className="col-9">
-            <h3 className="text-uppercase text-center mb-5">Danh sách nhà cho thuê</h3>
+            <h3 className="text-uppercase text-center mb-5">Danh sách phòng cho thuê</h3>
             <div className="mb-3 py-4 px-3"
                  style={{backgroundColor: "rgb(0,185,142)"}}>
                 <div className="row g-2">
@@ -115,12 +115,12 @@ const HouseByIdUser = () => {
                     < /div>
                 </div>
             </div>
-            <Link to="/add-house" className="btn btn-lg btn-primary mb-3">Thêm mới nhà</Link>
+            <Link to="/add-house" className="btn btn-lg btn-primary mb-3">Thêm mới phòng</Link>
             <table className="table">
                 <thead>
                 <tr align="center" style={{fontSize: '20px'}}>
                     <th>STT</th>
-                    <th>Nhà</th>
+                    <th>phòng</th>
                     <th style={{minWidth: '130px'}}>Doanh thu</th>
                     <th style={{width: '150px'}}>Trạng thái</th>
                     <th style={{minWidth: '150px'}}>Hành động</th>

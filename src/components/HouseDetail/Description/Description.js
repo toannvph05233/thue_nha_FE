@@ -6,7 +6,7 @@ const Description = () => {
     return (
         <div className="row product-description" style={{textAlign: 'justify'}}>
             <div className="col-lg-8 col-md-8 col-12">
-                <h4 className="mb-3">Mô tả nhà:</h4>
+                <h4 className="mb-3">Mô tả phòng:</h4>
                 <div dangerouslySetInnerHTML={{__html: house.description}}></div>
             </div>
         </div>

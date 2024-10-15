@@ -174,7 +174,7 @@ const ListAccount = () => {
                                 onChange={handleOptionChange}>
                             <option value="ALL">Tất cả</option>
                             <option value="ROLE_ADMIN">Admin</option>
-                            <option value="ROLE_OWNER">Chủ nhà</option>
+                            <option value="ROLE_OWNER">Chủ phòng</option>
                             <option value="ROLE_USER">Người dùng</option>
                         </select>
                     </div>
@@ -277,12 +277,12 @@ const ListAccount = () => {
                             </Table>
                         </div>
                         <div className="row">
-                            <h2 className="text-md-center">Lịch sử thuê nhà</h2>
+                            <h2 className="text-md-center">Lịch sử thuê phòng</h2>
                             <Table hover>
                                 <thead>
                                 <tr align="center" style={{fontSize: '20px'}}>
                                     <th>STT</th>
-                                    <th>Căn nhà</th>
+                                    <th>Căn phòng</th>
                                     <th>Ngày thuê</th>
                                     <th>Ngày trả</th>
                                     <th>Tổng tiền</th>

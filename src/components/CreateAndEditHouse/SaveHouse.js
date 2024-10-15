@@ -175,7 +175,7 @@ const SaveHouse = () => {
             editHouse(data).then(response => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Cập nhật nhà thành công !',
+                    title: 'Cập nhật phòng thành công !',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -184,7 +184,7 @@ const SaveHouse = () => {
                 console.log(error);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Thêm nhà thất bại !',
+                    title: 'Thêm phòng thất bại !',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -194,7 +194,7 @@ const SaveHouse = () => {
             createHouse(data).then(response => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Thêm nhà thành công !',
+                    title: 'Thêm phòng thành công !',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -203,7 +203,7 @@ const SaveHouse = () => {
                 console.log(error);
                 Swal.fire({
                     icon: 'error',
-                    title: 'Thêm nhà thất bại !',
+                    title: 'Thêm phòng thất bại !',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -247,10 +247,10 @@ const SaveHouse = () => {
                     {({values}) => (
                         <Form>
                             <div className="row">
-                                <h2 className="text-center text-uppercase mb-5">{houseId ? "Sửa đổi thông tin nhà" : "Thêm nhà mới"}</h2>
+                                <h2 className="text-center text-uppercase mb-5">{houseId ? "Sửa đổi thông tin phòng" : "Thêm phòng mới"}</h2>
                                 <div className="mb-3 col-4">
-                                    <label htmlFor="name" className="form-label">Tên nhà</label>
-                                    <Field type="text" className="form-control" id="name" placeholder="Nhập tên nhà"
+                                    <label htmlFor="name" className="form-label">Tên phòng</label>
+                                    <Field type="text" className="form-control" id="name" placeholder="Nhập tên phòng"
                                            name="name"/>
                                     <ErrorMessage name="name" className="text-danger" component="small"/>
                                 </div>
@@ -404,7 +404,7 @@ const SaveHouse = () => {
                                 <div className="text-center my-3">
                                     <button type="submit" className="btn btn-lg btn-primary me-3"
                                             style={{minWidth: '120px'}}>
-                                        {houseId ? "Cập nhật" : "Thêm nhà"}
+                                        {houseId ? "Cập nhật" : "Thêm phòng"}
                                     </button>
                                     <Link to="/profile/houses-owner" className="btn btn-lg btn-secondary"
                                     style={{minWidth: '120px'}}>

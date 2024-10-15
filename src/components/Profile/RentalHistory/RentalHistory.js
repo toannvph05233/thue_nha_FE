@@ -129,7 +129,7 @@ const RentalHistory = () => {
                         setLoad(!load);
                         const from = format(new Date(item.startTime), "dd/MM/yyyy");
                         const to = format(new Date(item.endTime), "dd/MM/yyyy");
-                        handleSendNotify(account, item.house.owner.id, `${account.username} đã hủy lịch thuê ngôi nhà ${item.house.name}. Lịch đặt: ${from} - ${to}`, 'profile/houses-owner-booking')
+                        handleSendNotify(account, item.house.owner.id, `${account.username} đã hủy lịch thuê ngôi phòng ${item.house.name}. Lịch đặt: ${from} - ${to}`, 'profile/houses-owner-booking')
                     }).catch(function (err) {
                         console.log(err);
                         setIsProgressing(false);
@@ -141,7 +141,7 @@ const RentalHistory = () => {
         const showCancelBookingConfirm = (booking) => {
             if (new Date(booking.startTime) - new Date() > (1000 * 60 * 60 * 24)) {
                 Swal.fire({
-                    title: 'Bạn chắc chắn muốn hủy thuê nhà?',
+                    title: 'Bạn chắc chắn muốn hủy thuê phòng?',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Xác nhận',
@@ -153,7 +153,7 @@ const RentalHistory = () => {
                 })
             } else if (new Date(booking.startTime) - new Date() < (1000 * 60 * 60 * 24)) {
                 Swal.fire({
-                    title: 'Thời gian hủy nhỏ hơn 1 ngày tính tới ngày thuê nhà, bạn sẽ chịu khoản phí 10% tiền thuê nhà',
+                    title: 'Thời gian hủy nhỏ hơn 1 ngày tính tới ngày thuê phòng, bạn sẽ chịu khoản phí 10% tiền thuê phòng',
                     icon: 'error',
                     showCancelButton: true,
                     confirmButtonText: 'Xác nhận',
@@ -188,7 +188,7 @@ const RentalHistory = () => {
                 setShowReviewModal(false);
                 setLoad(!load);
                 const house = response.data.booking.house;
-                handleSendNotify(account, house.owner.id, `${account.username} đã bình luận về ngôi nhà ${house.name}.`, `house-detail/${house.id}`)
+                handleSendNotify(account, house.owner.id, `${account.username} đã bình luận về ngôi phòng ${house.name}.`, `house-detail/${house.id}`)
             }).catch(function (err) {
                 console.log(err);
                 Swal.fire({
@@ -248,7 +248,7 @@ const RentalHistory = () => {
         return (
             <div className='col-9'>
                 <div>
-                    <h3 className="text-uppercase text-center mb-4">Lịch sử thuê nhà</h3>
+                    <h3 className="text-uppercase text-center mb-4">Lịch sử thuê phòng</h3>
                     <div className="mb-3 py-4 px-3"
                          style={{backgroundColor: "rgb(0,185,142)"}}>
                         <div className="row g-2">
@@ -286,10 +286,10 @@ const RentalHistory = () => {
                         <thead>
                         <tr align="center">
                             <th scope="col">STT</th>
-                            <th scope="col">Tên ngôi nhà</th>
+                            <th scope="col">Tên ngôi phòng</th>
                             <th scope="col">Địa chỉ</th>
-                            <th scope="col">Ngày thuê nhà</th>
-                            <th scope="col">Ngày trả nhà</th>
+                            <th scope="col">Ngày thuê phòng</th>
+                            <th scope="col">Ngày trả phòng</th>
                             <th scope="col">Tổng đơn</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Hành động</th>
@@ -321,7 +321,7 @@ const RentalHistory = () => {
                         }
                         </tbody>
                     </table>
-                    <span className={'text-danger'}>* Lưu ý :Nếu hủy thuê nhà trước ngày thuê nhà 1 ngày , bạn sẽ phải chịu một khoản phí bằng 50% tiền thuê nhà</span>
+                    <span className={'text-danger'}>* Lưu ý :Nếu hủy thuê phòng trước ngày thuê phòng 1 ngày , bạn sẽ phải chịu một khoản phí bằng 50% tiền thuê phòng</span>
                     {!_.isEmpty(rentalList) ?
                         <div className="col-12 mt-5 d-flex justify-content-center">
                             <Pagination count={totalPages} size="large" variant="outlined" shape="rounded"

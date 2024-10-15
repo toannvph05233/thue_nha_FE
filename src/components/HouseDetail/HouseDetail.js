@@ -106,7 +106,7 @@ const HouseDetail = () => {
         if (house.status === "Đang sửa") {
             Swal.fire({
                 icon: 'warning',
-                title: 'Nhà đang được bảo trì !',
+                title: 'phòng đang được bảo trì !',
                 text: 'Vui lòng quay lại sau',
                 showConfirmButton: true,
             }).then();
@@ -114,15 +114,15 @@ const HouseDetail = () => {
         } else if (house.owner.id === account.id){
             Swal.fire({
                 icon: 'warning',
-                title: 'Bạn đang là chủ của ngôi nhà này !',
-                text: 'Vui lòng chọn nhà khác để đặt lịch',
+                title: 'Bạn đang là chủ của ngôi phòng này !',
+                text: 'Vui lòng chọn phòng khác để đặt lịch',
                 showConfirmButton: true,
             }).then();
             return;
         } else if (_.isEmpty(account)){
             Swal.fire({
                 icon: 'warning',
-                title: 'Bạn cần đăng nhập để thuê nhà !',
+                title: 'Bạn cần đăng nhập để thuê phòng !',
                 showConfirmButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -202,7 +202,7 @@ const HouseDetail = () => {
             Swal.fire({
                 icon: 'success',
                 title: 'Đặt lịch thành công !',
-                text: 'Vui lòng chờ chủ nhà xác nhận',
+                text: 'Vui lòng chờ chủ phòng xác nhận',
                 showConfirmButton: true,
             }).then();
             setIsProgressing(false);
@@ -226,7 +226,7 @@ const HouseDetail = () => {
         const data = {
             sender: account,
             receiver: {id: house.owner.id},
-            message: `${account.username} đã đặt lịch thuê ngôi nhà ${house.name}. Lịch đặt: ${from} - ${to}`,
+            message: `${account.username} đã đặt lịch thuê ngôi phòng ${house.name}. Lịch đặt: ${from} - ${to}`,
             navigate: 'profile/houses-owner-booking'
         }
         saveNotify(data).then(response => {
@@ -299,7 +299,7 @@ const HouseDetail = () => {
 
                         <p className="mb-2">Địa chỉ: {house.address}</p>
                         <p className="mb-2">
-                            Chủ nhà: {house.owner?.username}
+                            Chủ phòng: {house.owner?.username}
                         </p>
 
                         <p className="mb-2">
@@ -314,7 +314,7 @@ const HouseDetail = () => {
 
                             <Modal show={showModal} onHide={handleCloseModal}>
                                 <Modal.Header closeButton>
-                                    <h3 className="text-center text-house">Đặt lịch thuê nhà</h3>
+                                    <h3 className="text-center text-house">Đặt lịch thuê phòng</h3>
                                 </Modal.Header>
                                 <Modal.Body>
                                     <div className="container">
