@@ -292,18 +292,19 @@ const HouseDetail = () => {
                                 null
                             }
                         </h3>
+                        <h4>Loại phòng : <span style={{ color: 'blue' }}>{house.category?.name}</span></h4>
                         <div className="d-flex">
                             <p className="me-4"><i className="fa-solid fa-bed me-2"></i>{house.bedroom} phòng ngủ</p>
                             <p><i className="fa-solid fa-bath me-2"></i>{house.bathroom} phòng tắm</p>
                         </div>
 
                         <p className="mb-2">Địa chỉ: {house.address}</p>
-                        <p className="mb-2">
-                            Chủ phòng: {house.owner?.username}
-                        </p>
+                        {/*<p className="mb-2">*/}
+                        {/*    Chủ phòng: {house.owner?.username}*/}
+                        {/*</p>*/}
 
                         <p className="mb-2">
-                            Trạng thái: {house.status}
+                            Trạng thái: <span style={{ color: 'blue' }}>{house.status}</span>
                         </p>
 
                         <div className="d-flex align-items-center mb-4 pt-2">

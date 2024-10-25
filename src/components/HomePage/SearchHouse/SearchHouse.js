@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import _ from "lodash";
 import {getAllProvinces} from "../../../service/addressService";
 
-const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setCurrentPage}) => {
+const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setCurrentPage, setCategory}) => {
     const [provinces, setProvinces] = useState([]);
 
     const handleNameSearchChange = (event) => {
@@ -15,6 +15,8 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
         if (provinceOption !== "Vị trí") setProvince(event.target.value)
         else setProvince("");
     };
+
+
     const handleOptionChange = (event) => {
         setCurrentPage(1)
         const price = event.target.value;
@@ -36,6 +38,12 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
         }
     };
 
+    const handleOptionCategoryChange = (event) => {
+        setCurrentPage(1);
+        setCategory(event.target.value);
+    };
+
+
     useEffect(() => {
         getAllProvinces().then(response => {
             setProvinces(response.data.data);
@@ -53,12 +61,19 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
                 <div className="row g-2">
                     <div className="col-md-10">
                         <div className="row g-2">
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                                 <input type="text" className="form-control border-0 py-3"
                                        placeholder="Nhập từ khóa tìm kiếm"
                                        onChange={handleNameSearchChange}/>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
+                                <select className="form-select border-0 py-3" onChange={handleOptionCategoryChange}>
+                                    <option value="0">Loại Phòng</option>
+                                    <option value="1">Thường</option>
+                                    <option value="2">Cao cấp</option>
+                                </select>
+                            </div>
+                            <div className="col-md-3">
                                 <select className="form-select border-0 py-3" onChange={handleOptionChange}>
                                     <option>Khoảng giá</option>
                                     <option value="1">Dưới 2.000.000 ₫</option>
@@ -66,7 +81,7 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
                                     <option value="3">Trên 3.000.000 ₫</option>
                                 </select>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                                 <select className="form-select border-0 py-3" onChange={handleOptionLocalChange}>
                                     <option>Vị trí</option>
                                     {!_.isEmpty(provinces) && provinces.map(province => (

@@ -15,11 +15,11 @@ const HouseByIdService = {
         });
     },
 
-    getAllHouseByPriceAndProvince: (currentPage = 0, nameSearch = "", province = "", minPrice = 0, maxPrice = 0) => {
+    getAllHouseByPriceAndProvince: (currentPage = 0, nameSearch = "", province = "", minPrice = 0, maxPrice = 0, idCate=0) => {
         return new Promise((resolve, reject) => {
             const formattedProvince = province.replace(/\s/g, "_");
             axios
-                .get(`http://localhost:8080/api/houses/search?page=${currentPage}&nameSearch=${nameSearch}&province=${formattedProvince}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
+                .get(`http://localhost:8080/api/houses/search?page=${currentPage}&nameSearch=${nameSearch}&province=${formattedProvince}&minPrice=${minPrice}&maxPrice=${maxPrice}&idCate=${idCate}`)
                 .then(response => {
                     resolve(response.data);
                 })

@@ -13,14 +13,15 @@ const HomePage = () => {
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
     const [province, setProvince] = useState("");
+    const [category, setCategory] = useState(0);
     const [houses, setHouses] = useState([]);
 
     const changePage = (e, value) => {
         setCurrentPage(value);
     }
 
-    const getAllHouseByPriceAndProvince = (currentPage, nameSearch, province, minPrice, maxPrice) => {
-        houseByIdService.getAllHouseByPriceAndProvince(currentPage, nameSearch, province, minPrice, maxPrice)
+    const getAllHouseByPriceAndProvince = (currentPage, nameSearch, province, minPrice, maxPrice, idCate) => {
+        houseByIdService.getAllHouseByPriceAndProvince(currentPage, nameSearch, province, minPrice, maxPrice, idCate)
             .then((houses) => {
                 setHouses(houses.content);
                 setTotalPages(houses.totalPages);
@@ -31,8 +32,8 @@ const HomePage = () => {
     };
 
     useEffect(() => {
-        getAllHouseByPriceAndProvince(currentPage - 1, nameSearch, province, minPrice, maxPrice)
-    }, [currentPage, nameSearch, province, minPrice, maxPrice])
+        getAllHouseByPriceAndProvince(currentPage - 1, nameSearch, province, minPrice, maxPrice, category)
+    }, [currentPage, nameSearch, province, minPrice, maxPrice, category])
 
 
     return (
@@ -46,7 +47,7 @@ const HomePage = () => {
                 <br/>
                 {/*Search begin*/}
                 <SearchHouse setNameSearch={setNameSearch} setMinPrice={setMinPrice}
-                             setMaxPrice={setMaxPrice} setProvince={setProvince} setCurrentPage={setCurrentPage}/>
+                             setMaxPrice={setMaxPrice} setProvince={setProvince} setCurrentPage={setCurrentPage} setCategory={setCategory}/>
                 {/*Search End*/}
                 <h2 className="text-center m-5">Danh sách các phòng cho thuê</h2>
                 <HouseComponent houses={houses} totalPages={totalPages} changePage={changePage}/>

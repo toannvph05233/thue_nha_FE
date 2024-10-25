@@ -34,15 +34,15 @@ const LeftSidebar = () => {
                 </>
             )
         } else if (account.role.name === "ROLE_USER") {
-            return (
-                <li className="px-3 py-2">
-                    <NavLink to="/profile/register-owner"
-                             className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
-                        <i className="fa-solid fa-house-user me-3"></i>
-                        Đăng ký làm chủ phòng
-                    </NavLink>
-                </li>
-            )
+            // return (
+            //     <li className="px-3 py-2">
+            //         <NavLink to="/profile/register-owner"
+            //                  className={({isActive}) => isActive ? "nav-link active" : "nav-link"}>
+            //             <i className="fa-solid fa-house-user me-3"></i>
+            //             Đăng ký làm chủ phòng
+            //         </NavLink>
+            //     </li>
+            // )
         } else {
             return (
                 <>
