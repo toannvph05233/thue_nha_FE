@@ -1,9 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import _ from "lodash";
-import {getAllProvinces} from "../../../service/addressService";
+import {getAllDistrictsByProvinceId, getAllProvinces} from "../../../service/addressService";
 
-const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setCurrentPage, setCategory}) => {
+const SearchHouse = ({
+                         setNameSearch,
+                         setProvince,
+                         setMinPrice,
+                         setMaxPrice,
+                         setCurrentPage,
+                         setCategory,
+                         setDistrict
+                     }) => {
     const [provinces, setProvinces] = useState([]);
+    const [districts, setDistricts] = useState([]);
 
     const handleNameSearchChange = (event) => {
         setCurrentPage(1);
@@ -12,8 +21,20 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
     const handleOptionLocalChange = (event) => {
         setCurrentPage(1);
         const provinceOption = event.target.value;
-        if (provinceOption !== "Vị trí") setProvince(event.target.value)
-        else setProvince("");
+        setProvince(provinceOption);
+        if (provinceOption !== "Tỉnh") {
+            const province = provinces.find(item => item.ProvinceName === provinceOption);
+            if (province) {
+                getAllDistrictsByProvinceId(province.ProvinceID).then(response => {
+                    setDistricts(response.data.data);
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
+        } else {
+            setProvince("");
+            setDistrict("");
+        }
     };
 
 
@@ -43,6 +64,16 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
         setCategory(event.target.value);
     };
 
+    const handleOptionDistrictChange = (event) => {
+        setCurrentPage(1);
+        if (event.target.value !== "Huyện"){
+            setDistrict(event.target.value);
+        }else {
+            setDistrict("");
+        }
+
+    };
+
 
     useEffect(() => {
         getAllProvinces().then(response => {
@@ -59,21 +90,21 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
         <div className="container-fluid mb-5" style={{padding: "35px", backgroundColor: "rgb(0,185,142)"}}>
             <div className="container">
                 <div className="row g-2">
-                    <div className="col-md-10">
+                    <div className="col-md-12">
                         <div className="row g-2">
-                            <div className="col-md-3">
+                            <div className="col-md-4">
                                 <input type="text" className="form-control border-0 py-3"
                                        placeholder="Nhập từ khóa tìm kiếm"
                                        onChange={handleNameSearchChange}/>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-2">
                                 <select className="form-select border-0 py-3" onChange={handleOptionCategoryChange}>
                                     <option value="0">Loại Phòng</option>
                                     <option value="1">Thường</option>
                                     <option value="2">Cao cấp</option>
                                 </select>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-2">
                                 <select className="form-select border-0 py-3" onChange={handleOptionChange}>
                                     <option>Khoảng giá</option>
                                     <option value="1">Dưới 2.000.000 ₫</option>
@@ -81,9 +112,9 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
                                     <option value="3">Trên 3.000.000 ₫</option>
                                 </select>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-2">
                                 <select className="form-select border-0 py-3" onChange={handleOptionLocalChange}>
-                                    <option>Vị trí</option>
+                                    <option>Tỉnh</option>
                                     {!_.isEmpty(provinces) && provinces.map(province => (
                                         <option key={province.ProvinceID}
                                                 value={province.ProvinceName}>
@@ -92,11 +123,22 @@ const SearchHouse = ({setNameSearch, setProvince, setMinPrice, setMaxPrice, setC
                                     ))}
                                 </select>
                             </div>
+                            <div className="col-md-2">
+                                <select className="form-select border-0 py-3" onChange={handleOptionDistrictChange}>
+                                    <option>Huyện</option>
+                                    {!_.isEmpty(districts) && districts.map(district => (
+                                        <option key={district.DistrictID}
+                                                value={district.DistrictName}>
+                                            {district.DistrictName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-md-2">
-                        <button className="btn btn-dark border-0 w-100 py-3">Tìm kiếm</button>
-                    </div>
+                    {/*<div className="col-md-2">*/}
+                    {/*    <button className="btn btn-dark border-0 w-100 py-3">Tìm kiếm</button>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>

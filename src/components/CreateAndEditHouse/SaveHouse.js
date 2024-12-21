@@ -106,6 +106,7 @@ const SaveHouse = () => {
                     sale: 0,
                     area: "",
                     description: "",
+                    category: 1,
                     facility: "",
                     thumbnail: "",
                     images: ""
@@ -167,6 +168,7 @@ const SaveHouse = () => {
         data.facility = facility;
         data.thumbnail = thumbnailURL;
         data.owner = {id: account.id};
+        data.category = {id: values.category};
         if (houseId) {
             data.createAt = house.createAt;
             data.status = house.status;
@@ -224,6 +226,7 @@ const SaveHouse = () => {
                         ward: house.ward,
                         houseNumber: house.houseNumber,
                         price: house.price,
+                        category: house.category,
                         sale: house.sale,
                         area: house.area,
                         description: house.description ? "Bài viết mô tả đã được lưu. Click để sửa bài viết" : "",
@@ -277,7 +280,17 @@ const SaveHouse = () => {
                                     <ErrorMessage name="bathroom" className="text-danger" component="small"/>
                                 </div>
 
-                                <div className="col-4 form-group mb-3">
+                                <div className="mb-3 col-3">
+                                    <label htmlFor="category" className="form-label">Loại Phòng</label>
+                                    <Field as="select" className="form-select" name="category">
+                                        <option value="">---Vui lòng chọn---</option>
+                                        <option value="1">Thường</option>
+                                        <option value="2">Cao cấp</option>
+                                    </Field>
+                                    <ErrorMessage name="category" className="text-danger" component="small"/>
+                                </div>
+
+                                <div className="col-3 form-group mb-3">
                                     <label className="form-label" htmlFor="province">
                                         Tỉnh/Thành phố
                                     </label>
@@ -293,7 +306,7 @@ const SaveHouse = () => {
                                     <ErrorMessage name="province" className="text-danger" component="small"/>
                                 </div>
 
-                                <div className="col-4 form-group mb-3">
+                                <div className="col-3 form-group mb-3">
                                     <label className="form-label" htmlFor="district">Quận/Huyện</label>
                                     <Field as="select" className="form-select" id="district" name="district">
                                         <option value="">---Chọn Quận/Huyện---</option>
@@ -307,7 +320,7 @@ const SaveHouse = () => {
                                     <ErrorMessage name="district" className="text-danger" component="small"/>
                                 </div>
 
-                                <div className="col-4 form-group mb-3">
+                                <div className="col-3 form-group mb-3">
                                     <label className="form-label" htmlFor="ward">Phường/Xã</label>
                                     <Field as="select" className="form-select" id="ward" name="ward">
                                         <option value="">---Chọn Phường/Xã---</option>

@@ -14,14 +14,15 @@ const HomePage = () => {
     const [maxPrice, setMaxPrice] = useState(0);
     const [province, setProvince] = useState("");
     const [category, setCategory] = useState(0);
+    const [district, setDistrict] = useState("");
     const [houses, setHouses] = useState([]);
 
     const changePage = (e, value) => {
         setCurrentPage(value);
     }
 
-    const getAllHouseByPriceAndProvince = (currentPage, nameSearch, province, minPrice, maxPrice, idCate) => {
-        houseByIdService.getAllHouseByPriceAndProvince(currentPage, nameSearch, province, minPrice, maxPrice, idCate)
+    const getAllHouseByPriceAndProvince = (currentPage, nameSearch, province, minPrice, maxPrice, idCate, district) => {
+        houseByIdService.getAllHouseByPriceAndProvince(currentPage, nameSearch, province, minPrice, maxPrice, idCate, district)
             .then((houses) => {
                 setHouses(houses.content);
                 setTotalPages(houses.totalPages);
@@ -32,8 +33,8 @@ const HomePage = () => {
     };
 
     useEffect(() => {
-        getAllHouseByPriceAndProvince(currentPage - 1, nameSearch, province, minPrice, maxPrice, category)
-    }, [currentPage, nameSearch, province, minPrice, maxPrice, category])
+        getAllHouseByPriceAndProvince(currentPage - 1, nameSearch, province, minPrice, maxPrice, category, district)
+    }, [currentPage, nameSearch, province, minPrice, maxPrice, category, district])
 
 
     return (
@@ -47,7 +48,7 @@ const HomePage = () => {
                 <br/>
                 {/*Search begin*/}
                 <SearchHouse setNameSearch={setNameSearch} setMinPrice={setMinPrice}
-                             setMaxPrice={setMaxPrice} setProvince={setProvince} setCurrentPage={setCurrentPage} setCategory={setCategory}/>
+                             setMaxPrice={setMaxPrice} setProvince={setProvince} setCurrentPage={setCurrentPage} setCategory={setCategory} setDistrict={setDistrict}/>
                 {/*Search End*/}
                 <h2 className="text-center m-5">Danh sách các phòng cho thuê</h2>
                 <HouseComponent houses={houses} totalPages={totalPages} changePage={changePage}/>

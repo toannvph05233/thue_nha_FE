@@ -298,7 +298,7 @@ const HouseDetail = () => {
                             <p><i className="fa-solid fa-bath me-2"></i>{house.bathroom} phòng tắm</p>
                         </div>
 
-                        <p className="mb-2">Địa chỉ: {house.address}</p>
+                        {/*<p className="mb-2">Địa chỉ: {house.address}</p>*/}
                         {/*<p className="mb-2">*/}
                         {/*    Chủ phòng: {house.owner?.username}*/}
                         {/*</p>*/}
