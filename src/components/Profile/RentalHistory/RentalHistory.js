@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 import _ from 'lodash';
+import {Link, useNavigate} from 'react-router-dom';
 import BookingService from "../../../service/BookingService";
 import {convertDateFormat, formatCurrency} from "../../../service/format";
 import {CircularProgress, Pagination} from "@mui/material";
@@ -12,8 +13,10 @@ import {getAllReviewsByAccountId} from "../../../service/reviewService";
 import {format} from "date-fns";
 import {saveNotify} from "../../../service/notifyService";
 import {WebSocketContext} from "../../ChatBox/WebSocketProvider";
+import axios from "axios";
 
 const RentalHistory = () => {
+        const navigate = useNavigate()
         const account = useSelector(state => state.account);
         const [rentalList, setRentalList] = useState([]);
         const [currentPage, setCurrentPage] = useState(1);
@@ -27,12 +30,12 @@ const RentalHistory = () => {
         const {sendNotify} = useContext(WebSocketContext);
         const {unreadNotify, toggleStatus} = useSelector(state => state);
 
-    const [houseName , setHouseName] = useState('');
-    const [status , setStatus] = useState('');
-    const [startTime , setStartTime] = useState(null);
-    const [endTime , setEndTime] = useState(null);
-    const [localStartTime , setLocalStartTime] = useState(null);
-    const [localEndTime , setLocalEndTime] = useState(null);
+        const [houseName, setHouseName] = useState('');
+        const [status, setStatus] = useState('');
+        const [startTime, setStartTime] = useState(null);
+        const [endTime, setEndTime] = useState(null);
+        const [localStartTime, setLocalStartTime] = useState(null);
+        const [localEndTime, setLocalEndTime] = useState(null);
 
         useEffect(() => {
             getRentalList(account.id, currentPage - 1);
@@ -45,50 +48,50 @@ const RentalHistory = () => {
             }).catch(error => {
                 console.log(error);
             })
-        }, [load, unreadNotify, toggleStatus , houseName , status , localStartTime , localEndTime])
+        }, [load, unreadNotify, toggleStatus, houseName, status, localStartTime, localEndTime])
 
 
-    const handleHouseName = (e) => {
-        let {value} = e.target;
-        console.log(value);
-        setHouseName(value);
-    }
-
-    const changeDate = (dayValue) => {
-        const date = dayValue.split("-");
-        const year = parseInt(date[0]);
-        const month = parseInt(date[1]);
-        const day = parseInt(date[2]);
-
-        if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
-            const localDateTime = new Date(year, month - 1, day);
-            localDateTime.setMinutes(0);
-            localDateTime.setSeconds(0);
-
-            return localDateTime.toISOString().slice(0, 16);
-        } else {
-            return "";
+        const handleHouseName = (e) => {
+            let {value} = e.target;
+            console.log(value);
+            setHouseName(value);
         }
-    }
-    const handleStartTime = (e) => {
-        console.log();
-        setStartTime(e.target.value);
-        setLocalStartTime(changeDate(e.target.value));
-    }
 
-    const handleEndTime = (e) => {
-        console.log(e.target.value);
-        setEndTime(e.target.value);
-        setLocalEndTime(changeDate(e.target.value))
-    }
+        const changeDate = (dayValue) => {
+            const date = dayValue.split("-");
+            const year = parseInt(date[0]);
+            const month = parseInt(date[1]);
+            const day = parseInt(date[2]);
+
+            if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
+                const localDateTime = new Date(year, month - 1, day);
+                localDateTime.setMinutes(0);
+                localDateTime.setSeconds(0);
+
+                return localDateTime.toISOString().slice(0, 16);
+            } else {
+                return "";
+            }
+        }
+        const handleStartTime = (e) => {
+            console.log();
+            setStartTime(e.target.value);
+            setLocalStartTime(changeDate(e.target.value));
+        }
+
+        const handleEndTime = (e) => {
+            console.log(e.target.value);
+            setEndTime(e.target.value);
+            setLocalEndTime(changeDate(e.target.value))
+        }
         const getRentalList = (id, currentPage) => {
             let booking = {
-                houseName : houseName,
-                status : status,
-                startTime : localStartTime ,
-                endTime : localEndTime
+                houseName: houseName,
+                status: status,
+                startTime: localStartTime,
+                endTime: localEndTime
             };
-            BookingService.getHistoryByAccount(id, currentPage , booking).then((response) => {
+            BookingService.getHistoryByAccount(id, currentPage, booking).then((response) => {
                 const result = response.data.content;
                 setRentalList(result);
                 setTotalPages(response.data.totalPages);
@@ -219,14 +222,21 @@ const RentalHistory = () => {
                             Đánh giá
                         </button>
                     )
-            }
-            else if ((new Date(item.startTime) - new Date() < (1000 * 60 * 60 * 24))
+            } else if ((new Date(item.startTime) - new Date() > (1000 * 60 * 60 * 24))
                 && item.status === 'Chờ xác nhận') {
                 return (
-                    <button className='btn btn-danger'
-                            onClick={() => showCancelBookingConfirm(item)}>
-                        Hủy thuê
-                    </button>
+                    <>
+                        <button className='btn btn-danger'
+                                onClick={() => showCancelBookingConfirm(item)}>
+                            Hủy thuê
+                        </button>
+                        <br/>
+                        <button className='btn btn-success'
+                                onClick={() => bookingOnlineVnpay(item)}>
+                            Thanh toán Vnpay
+                        </button>
+                    </>
+
                 )
             }
         }
@@ -245,6 +255,16 @@ const RentalHistory = () => {
             })
         }
 
+        const bookingOnlineVnpay = (bookingItem) => {
+            const pay = {idBooking: bookingItem?.id, total:bookingItem?.total};
+            console.log("bookingItem")
+            console.log(pay)
+            axios.post("http://localhost:8080/api/pay/vnpay", pay).then(resp => {
+                window.open(resp.data);
+                window.close();
+            })
+        }
+
         return (
             <div className='col-9'>
                 <div>
@@ -253,7 +273,7 @@ const RentalHistory = () => {
                          style={{backgroundColor: "rgb(0,185,142)"}}>
                         <div className="row g-2">
                             <div className="col-md-3">
-                                <select className="form-select py-2 border-0" value={status} onChange={(e)=>{
+                                <select className="form-select py-2 border-0" value={status} onChange={(e) => {
                                     setStatus(e.target.value)
                                 }}
                                         style={{minWidth: '200px'}}>
@@ -267,17 +287,20 @@ const RentalHistory = () => {
                             </div>
 
                             <div className="col-md-5">
-                                <input type="text" className="form-control border-0 py-2" placeholder="Nhập từ khóa tìm kiếm"
+                                <input type="text" className="form-control border-0 py-2"
+                                       placeholder="Nhập từ khóa tìm kiếm"
                                        onInput={handleHouseName} name="houseName" value={houseName}/>
                             </div>
                             <div className="col-2">
                                 <div className="input-group">
-                                    <input type="date" className="form-control" name="startTime" onChange={handleStartTime}   value={startTime} />
+                                    <input type="date" className="form-control" name="startTime" onChange={handleStartTime}
+                                           value={startTime}/>
                                 </div>
                             </div>
                             <div className="col-2">
                                 <div className="input-group">
-                                    <input type="date" className="form-control" name="endTime" onChange={handleEndTime} min={startTime} value={endTime}  />
+                                    <input type="date" className="form-control" name="endTime" onChange={handleEndTime}
+                                           min={startTime} value={endTime}/>
                                 </div>
                             </div>
                         </div>
@@ -403,11 +426,11 @@ const RentalHistory = () => {
                     </Formik>
                 </Modal>
                 {isProgressing &&
-                    <div
-                        className="w-100 h-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center"
-                        style={{background: 'rgba(0,0,0,0.4)'}}>
-                        <CircularProgress color="success"/>
-                    </div>
+                <div
+                    className="w-100 h-100 position-fixed top-0 start-0 d-flex justify-content-center align-items-center"
+                    style={{background: 'rgba(0,0,0,0.4)'}}>
+                    <CircularProgress color="success"/>
+                </div>
                 }
             </div>
         );
